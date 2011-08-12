@@ -1,0 +1,5 @@
+%h2 עריכת החניך #{@hanich.full_name}
+
+=partial "hanich/form"
+  
+  

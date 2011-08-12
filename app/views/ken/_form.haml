@@ -1,0 +1,7 @@
+- form_for @ken, '', :id => 'ken-form' do |f|
+  = f.error_messages
+  = f.text_field_block :name, :caption => "שם הקן"
+  = f.text_field_block :code, :caption => "קוד הקן"
+
+  = f.submit_block "שמור את הקן הזאת יא סוואדי!", :class => 'button'
+

@@ -1,0 +1,87 @@
+%span= link_to @kvutza.ken.name, "/"+@kvutza.ken.mahoz.name+"/"+@kvutza.ken.name
+%h2 קבוצת #{@kvutza.name}
+
+#mifgashim-table{:style => "float: right;"}
+  %table{:class => 'datatable'}
+    %thead
+      %tr
+        %th תאריך
+        %th סוג
+        %th כותרת
+        %th בנים
+        %th בנות
+        %th סה"כ
+        %th אפשרויות
+    %tbody
+      - @mifgashim.each do |m|
+        %tr
+          %td= m.date.strftime("%d/%m/%y")
+          %td= m.kind
+          %td= m.name
+          %td= m.boys
+          %td= m.girls
+          %td= m.girls+m.boys
+          %td
+            = link_to "עריכה", url_for(:mifgash, :edit, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name, :mifgash => m.name)
+            = link_to "פרטים מלאים"
+
+#plot-ph{:style => "width:300px;height:200px; float: left;"}
+- content_for :js do
+  :javascript
+    var boys = #{@graph['m'].to_json}
+    var girls = #{@graph['f'].to_json}
+    
+    
+    var placeholder = $("#plot-ph");
+    var data = [ boys, girls ];
+    var options = {
+        xaxis: { mode: "time", tickLength: 5, monthNames: ["ינו", "פבר", "מרץ", "אפר", "מאי", "יונ", "יול", "אוג", "ספט", "אוק", "נוב", "דצמ"], },
+        crosshair: { mode: "x" },
+        grid: { hoverable: true, autoHighlight: false, borderWidth: 1 },
+        colors: ["#527add", "#de527a"],
+        series: {
+          stack: 1,
+          lines: { show: true, fill: true },
+          points: { show: true }
+        },
+        
+        //    grid: {
+        //    backgroundColor: { colors: ["#fff", "#eee"] }
+        //}
+      }
+      
+      var plot = $.plot(placeholder, data, options );
+    
+%div{:style => "clear: both;"}              
+= link_to "הוספת מפגש חדש", url_for(:mifgash, :new, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name)
+%br
+
+%h3 חניכים בקבוצת #{@kvutza.name}
+%table{:class => 'datatable', :id => 'hanichim', :style => "clear: both;"}
+  %thead
+    %tr
+      %th #
+      %th שם פרטי
+      %th משפחה
+      %th טלפון
+      %th טלפון נוסף
+      %th ת"ז
+      %th כתובת
+      %th נוכחות
+      %th אפשרויות  
+  %tbody
+    - @kvutza.hanichim.each_with_index do |k, i|
+      %tr
+        %td= i+1
+        %td= k.first_name
+        %td= k.last_name
+        %td= k.phone
+        %td= k.phone_2
+        %td= k.tz
+        %td= k.address
+        %td.inlinesparkline= k.activity
+        %td
+          = link_to "עריכה", url_for(:hanich, :edit, :mahoz => k.kvutza.ken.mahoz.name, :ken => k.kvutza.ken.name, :kvutza => k.kvutza.name, :hanich => k.full_name)
+          = link_to "פרטים מלאים", url_for(:hanich, :show, :mahoz => k.kvutza.ken.mahoz.name, :ken => k.kvutza.ken.name, :kvutza => k.kvutza.name, :hanich => k.full_name)
+          
+= link_to "הוספת חניך חדש", url_for(:hanich, :new, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name)

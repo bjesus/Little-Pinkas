@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:haniches, :index)
+      %li=link_to pat(:new), url(:haniches, :new)
+      %li.active=link_to pat(:edit), url(:haniches, :edit, :id => @hanich.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:hanich)
+    .inner
+      -form_for :hanich, url(:haniches, :update, :id => @hanich.id), :method => :put, :class => :form do |f|
+        =partial "haniches/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

@@ -1,0 +1,13 @@
+- form_for @hanich, '../'+@hanich.full_name, :id => 'hanich-form' do |f|
+  = f.error_messages
+  = f.text_field_block :first_name, :caption => "שם פרטי"
+  = f.text_field_block :last_name, :caption => "שם משפחה"
+  = f.text_field_block :phone, :caption => "טלפון"
+  = f.text_field_block :phone_2, :caption => "טלפון נוסף"
+  = f.text_field_block :address, :caption => "כתובת"
+  = f.text_field_block :tz, :caption => "תעודת זהות"
+
+  = f.select_block     :gender, :options => ['בן', 'בת'], :caption => "מין"
+
+  = f.submit_block "שמור את החניך הזה יא סחבי!", :class => 'button'
+

@@ -1,0 +1,109 @@
+- if can? :show, @ken.mahoz
+  %span= link_to @ken.mahoz.name, "/"+@ken.mahoz.name
+%h2 קן #{@ken.name}
+
+
+#kvutzot-table{:style => "float: right;"}
+  %table{:class => 'datatable'}
+    %thead
+      %tr
+        %th קבוצה
+        %th מדריכים
+        %th גרף נוכחות
+        %th בנים-בנות
+        %th אפשרויות
+    %tbody
+      - @ken.kvutzot.each do |k|
+        %tr
+          %td= k.name
+          %td= k.madrichim
+          %td.inlinesparkline= k.activity
+          %td.inlinesparkline= k.gender_stats
+          %td
+            -#= link_to "עריכה", url_for(:kvutza, :edit, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
+            = link_to "פרטים מלאים", url_for(:kvutza, :show, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
+
+#plot-ph{:style => "width:300px;height:200px; float: left;"}
+- content_for :js do
+  :javascript
+    var boys = #{@graph['m'].to_json}
+    var girls = #{@graph['f'].to_json}
+    
+    
+    var placeholder = $("#plot-ph");
+    var data = [ boys, girls ];
+    var options = {
+        xaxis: { mode: "time", tickLength: 5, monthNames: ["ינו", "פבר", "מרץ", "אפר", "מאי", "יונ", "יול", "אוג", "ספט", "אוק", "נוב", "דצמ"]},
+        yaxis: {zoomRange: [10, 0], panRange: false},
+        crosshair: { mode: "x" },
+        grid: { hoverable: true, autoHighlight: false, borderWidth: 1 },
+        colors: ["#527add", "#de527a"],
+        series: {
+          stack: 1,
+          lines: { show: true, fill: true },
+          points: { show: true }
+        },
+        
+        zoom: {
+            interactive: true
+        },
+        pan: {
+            interactive: true
+        }
+        
+        
+        //    grid: {
+        //    backgroundColor: { colors: ["#fff", "#eee"] }
+        //}
+      }
+      
+      var plot = $.plot(placeholder, data, options );
+      
+      function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#fee',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+        };
+   
+      
+      var previousPoint = null;
+
+      $("#plot-ph").bind("plothover", function (event, pos, item) {
+        $("#x").text(pos.x.toFixed(2));
+        $("#y").text(pos.y.toFixed(2));
+ 
+        if (true) {
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+                    
+                    $("#tooltip").remove();
+                    var x = item.datapoint[0],
+                        y = item.datapoint[1];
+                    
+                    var newDate = new Date( );
+                    newDate.setTime( x );
+                    formattedDate = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate()
+                    
+                    showTooltip(item.pageX, item.pageY,
+                                y+" בפעילות בתאריך "+formattedDate);
+                }
+            }
+            else {
+                $("#tooltip").remove();
+                previousPoint = null;            
+            }
+        }
+    });
+    
+
+
+
+%span= link_to "יצירת קבוצה חדשה", "./"+@ken.name+"/new"

@@ -1,0 +1,23 @@
+- form_for @mifgash, '', :id => 'mifgash-form' do |f|
+  = f.error_messages
+  = f.text_field_block :name, :caption => "כותרת"
+  = f.select_block     :kind, :options => ['פעולה', 'ערב תרבות', 'קבלת שבת', 'פעילות שיא', 'טיול', 'מחנה'], :caption => "סוג המפגש"
+  = f.text_field_block :location, :caption => "מקום"
+  = f.text_field_block :date, :caption => "תאריך", :value => @mifgash.date.strftime("%Y-%m-%d")
+
+
+
+  - @kvutza.hanichim.asc(:first_name).each do |t|
+    - if @mifgash.hanichim.include? t
+      %input{:type => 'checkbox', :name => "taxonomy[]", :value => t.id, :checked => true}
+    - else
+      %input{:type => 'checkbox', :name => "taxonomy[]", :value => t.id, :checked => false}
+    %span= t.full_name
+    %br
+      
+
+
+  = f.submit_block "שמור את המפגש הזה יא סחבי!", :class => 'button'
+
+
+  -#= f.check_box_block :hanichim, :value => h, :caption => h.full_name

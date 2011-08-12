@@ -1,0 +1,35 @@
+Pinkas.controllers :ken do
+  include CanCan::ControllerAdditions
+
+  get :new, :map => "/:mahoz/new" do
+    authorize! :new, Ken
+    @mahoz = Mahoz.first :conditions => {:name => params[:mahoz]}
+    @ken = @mahoz.kenim.new
+    render 'ken/new'
+  end
+
+  get :show, :map => "/:mahoz/:ken" do
+    @ken = Ken.first :conditions => {:name => params[:ken]}
+    authorize! :show, @ken
+    @graph = {'m' => [], 'f' => []}
+    #Mifgash.ken(@ken).all.order_by([[:date, :asc]]).each_with_index do |m, i|
+    #  @graph['m'][i] = [m.date.to_time.to_i*1000, m.boys]
+    #  @graph['f'][i] = [m.date.to_time.to_i*1000, m.girls]
+    #end
+    render 'ken/show'
+  end
+
+
+  post :update, :map => "/:mahoz/:ken_name" do
+    if params[:ken_name] == 'new'
+      @mahoz = Mahoz.first :conditions => {:name => params[:mahoz]}
+      @ken = @mahoz.kenim.new
+    else
+      @ken = ken.first :conditions => {:name => params[:ken_name]}
+    end
+    authorize! :update, @ken
+    @ken.update_attributes params[:ken]
+    redirect url(:mahoz, :show, {:mahoz => @mahoz.name})
+  end
+  
+end

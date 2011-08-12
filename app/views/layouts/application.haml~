@@ -1,0 +1,61 @@
+!!! Strict
+%html{:dir => "rtl"}
+  %head
+    %title= [@title, "פנקס הקטן"].compact.join(" | ")
+    = stylesheet_link_tag 'application', 'demo_table', 'jquery-ui-1.8.13.custom'
+    = javascript_include_tag 'jquery', 'application', 'jquery.dataTables.min', 'jquery.sparkline.min', 'jquery.flot.min', 'jquery.flot.navigate.min', 'jquery.flot.stack.min', 'jquery.flot.crosshair.min'
+    = yield_content :include
+  %body
+    #header
+      %h1 פנקס הקטן
+      %ul.menu
+        - if logged_in?
+          %li= link_to 'מסך בית', "/"
+          %li= link_to 'עזרה', "/help"
+          %li= link_to "התנתקות ("+current_account.name+")", "/logout"
+
+    #container
+      #main= yield
+    #footer
+      פנקס הקטן | גרסת ננו-אלפא | תוכנה חופשית מאת הנוער העובד והלומד | מומלץ לצפיה בדפדפן חופשי
+      :javascript
+      
+          $('.inlinesparkline').sparkline('html',{ maxSpotColor: false, minSpotColor: false, height: "15px" }); 
+      
+          jQuery.fn.dataTableExt.oSort['uk_date-asc']  = function(a,b) {
+          var ukDatea = a.split('/');
+          var ukDateb = b.split('/');
+
+          var x = (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+          var y = (ukDateb[2] + ukDateb[1] + ukDateb[0]) * 1;
+
+          return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+            };
+
+          jQuery.fn.dataTableExt.oSort['uk_date-desc'] = function(a,b) {
+          var ukDatea = a.split('/');
+          var ukDateb = b.split('/');
+
+          var x = (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+          var y = (ukDateb[2] + ukDateb[1] + ukDateb[0]) * 1;
+
+          return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
+          };
+          
+    
+        $('#hanichim').dataTable({    "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true, 	"oLanguage": {			"sSearch": "חיפוש מהיר:"		}});
+        $('#kvutzot-table .datatable').dataTable({ "sWidth": 650,   "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true, 	"oLanguage": {			"sSearch": "חיפוש מהיר:"		}});
+        $('#mifgashim-table .datatable').dataTable({ 		"bJQueryUI": true,
+            "aoColumns": [
+              { "sType": "uk_date", "asSorting": [ "desc" ] },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],  
+            'iDisplayLength': 5,  "bLengthChange": false, "bPaginate": true, "bInfo": true, 	"oLanguage": {			"sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_", "sSearch": "חיפוש מהיר:"		}});
+        $('#hanich-mifgashim-table').dataTable({   "bJQueryUI": true,  'iDisplayLength': 5,  "bLengthChange": false, "bPaginate": true, "bInfo": true, 	"oLanguage": {			"sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_", "sSearch": "חיפוש מהיר:"		}});
+
+= yield_content :js

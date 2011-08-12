@@ -1,0 +1,10 @@
+.block
+  .secondary-navigation
+  .content
+    %h2.title התחברות
+    .inner
+      %form{ :action => "/login", :method => "post"}
+        %input{:type => "text", :name => "email", :placeholder => 'דוא"ל'}
+        %input{:type => "password", :name => "password", :placeholder => "סיסמה"}
+        %input{:type => "submit", :name => "submit", :value => "חבר אותי פנקס!"}
+

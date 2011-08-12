@@ -1,0 +1,58 @@
+.group
+  =f.label :mifgashim_ids
+  =f.error_message_on :mifgashim_ids
+  =f.text_field :mifgashim_ids, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :phone_2
+  =f.error_message_on :phone_2
+  =f.text_field :phone_2, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :kvutza_id
+  =f.error_message_on :kvutza_id
+  =f.text_field :kvutza_id, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :_id
+  =f.error_message_on :_id
+  =f.text_field :_id, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :_type
+  =f.error_message_on :_type
+  =f.text_field :_type, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :tz
+  =f.error_message_on :tz
+  =f.text_field :tz, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :phone
+  =f.error_message_on :phone
+  =f.text_field :phone, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :last_name
+  =f.error_message_on :last_name
+  =f.text_field :last_name, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :first_name
+  =f.error_message_on :first_name
+  =f.text_field :first_name, :class => :text_field
+  %span.description Ex: a simple text
+
+
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:haniches, :index)}';return false", :class => :button

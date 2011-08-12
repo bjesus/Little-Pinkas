@@ -1,0 +1,41 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:haniches, :index)
+      %li=link_to pat(:new), url(:haniches, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:haniches)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:hanich, :mifgashim_ids)
+          %th=mat(:hanich, :phone_2)
+          %th=mat(:hanich, :kvutza_id)
+          %th=mat(:hanich, :_id)
+          %th=mat(:hanich, :_type)
+          %th=mat(:hanich, :tz)
+          %th=mat(:hanich, :phone)
+          %th=mat(:hanich, :last_name)
+          %th=mat(:hanich, :first_name)
+          %th.last="&nbsp;"
+        -@haniches.each do |hanich|
+          %tr
+            %td.first=hanich.mifgashim_ids
+            %td=hanich.phone_2
+            %td=hanich.kvutza_id
+            %td=hanich._id
+            %td=hanich._type
+            %td=hanich.tz
+            %td=hanich.phone
+            %td=hanich.last_name
+            %td=hanich.first_name
+            %td.last
+              =button_to pat(:edit), url(:haniches, :edit, :id => hanich.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:haniches, :destroy, :id => hanich.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

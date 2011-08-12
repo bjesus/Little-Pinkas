@@ -1,0 +1,121 @@
+@import "compass/reset";
+
+html {
+  background: #fff url('/images/bg.png');
+}
+
+body {
+  margin: 1em auto;
+  margin-top: 0;
+  width: 950px;
+  background-color: rgba(255,255,255,0.65);
+  padding: 0;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 0 25px grey;
+  font-family: "arial", sans-serif;
+  font-size: 85%;
+}
+
+#header {
+  background: #4eab51;
+  padding: 0 5px 1em 0;
+  border-radius: 20px 20px 0 0;
+  
+  h1 {
+    color: white;
+    padding-right: 1em;
+    padding-top: .5em;
+    font-size: 200%;
+    font-weight: bold;
+  }
+
+  ul.menu {
+    list-style: none;
+    
+    li {
+      list-style: none;
+      display: inline;
+      margin-right: 1.5em;
+    
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 120%;
+      }
+    }
+  }
+}
+
+a.fg-button {
+  margin: 3px;
+}
+
+#container {
+  padding: 1em;
+  
+  a, a:visited {
+    background-color: #894fab;
+    color: white;
+    padding: 0px 5px;
+    text-decoration: none;
+    //font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ab4f83;
+    
+
+  }
+
+  a:hover {
+    color: white;
+    background-color: #ab4f83;
+  }
+
+  
+  h2 {
+    font-weight: bold;
+    font-size: 150%;
+    margin-bottom: .5em;
+  }
+  
+  h3 {
+    font-weight: bold;
+    font-size: 125%;
+    margin-top: 1em;
+    margin-bottom: .5em;
+  }
+  
+  table {
+
+    width: 100%;
+    
+    th {
+      text-align: center;
+    }
+    
+    td {
+      padding: 6px 3px;
+      text-align: right;
+    }
+  }
+  
+  #mifgashim-table {
+    width: 65%;
+    
+    table {
+      float: right;
+    }
+  }
+
+  #kvutzot-table {
+    .dataTables_wrapper {
+      width: 615px;
+    }
+  }
+  
+}
+
+#footer {
+  text-align: center;
+  color: grey;
+  padding: 1em;
+}

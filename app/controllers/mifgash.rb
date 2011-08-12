@@ -1,0 +1,58 @@
+Pinkas.controllers :mifgash do
+
+  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
+  #   case content_type
+  #     when :js then ...
+  #     else ...
+  # end
+
+  # get :foo, :with => :id do
+  #   "Maps to url '/foo/#{params[:id]}'"
+  # end
+
+  get :new, :map => "/:mahoz/:ken/:kvutza/mifgash/new" do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+    @mifgash = @kvutza.mifgashim.new
+    @mifgash.date = Date.today
+    render 'mifgash/new'
+  end
+
+  get :edit, :map => "/:mahoz/:ken/:kvutza/mifgash/:mifgash" do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+    @mifgash = Mifgash.first :conditions => {:name => params[:mifgash]}
+    render 'mifgash/edit'
+  end
+  
+  post :update, :map => "/:mahoz/:ken/:kvutza/mifgash/:mifgash_name" do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+    if params[:mifgash_name] == 'new'
+      @mifgash = @kvutza.mifgashim.new
+    else
+      @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_name]}
+    end
+    
+    if params[:taxonomy]
+      @mifgash.hanichim = params[:taxonomy].map { |t|
+        if t[1] != '0'
+          Hanich.find(t)
+        end
+      }
+    else
+      @mifgash.hanichim = []
+    end
+    
+    @mifgash.update_attributes params[:mifgash]
+
+    @kvutza.hanichim.each do |h|
+      if @mifgash.hanichim.include? h
+        h.mifgashim << @mifgash
+      else
+        h.mifgashim.delete @mifgash
+      end
+      h.save
+    end
+    
+    redirect url(:kvutza, :show, {:kvutza => @mifgash.kvutza.name, :mahoz => @mifgash.kvutza.ken.mahoz.name, :ken => @mifgash.kvutza.ken.name})
+  end
+  
+end

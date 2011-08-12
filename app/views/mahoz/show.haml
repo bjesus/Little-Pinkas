@@ -1,0 +1,54 @@
+%h2 מחוז #{@mahoz.name}
+
+#kvutzot-table{:style => "float: right;"}
+  %table{:class => 'datatable'}
+    %thead
+      %tr
+        %th קן
+        %th רכז
+        %th גרף נוכחות
+        %th בנים-בנות
+        %th אפשרויות
+    %tbody
+      - @mahoz.kenim.each do |k|
+        %tr
+          %td= k.name
+          %td= k.rakazim_names
+          %td.inlinesparkline 102,313,323,11
+          %td.inlinesparkline 123,1356,212,2123
+          %td
+            -#= link_to "עריכה", url_for(:ken, :edit, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
+            = link_to "פרטים מלאים", url_for(:ken, :show, :mahoz => k.mahoz.name, :ken => k.name)
+
+#plot-ph{:style => "width:300px;height:200px; float: left;"}
+- content_for :js do
+  :javascript
+    var boys = #{@graph['m'].to_json}
+    var girls = #{@graph['f'].to_json}
+    
+    
+    var placeholder = $("#plot-ph");
+    var data = [ boys, girls ];
+    var options = {
+        xaxis: { mode: "time", tickLength: 5, monthNames: ["ינו", "פבר", "מרץ", "אפר", "מאי", "יונ", "יול", "אוג", "ספט", "אוק", "נוב", "דצמ"], },
+        crosshair: { mode: "x" },
+        grid: { hoverable: true, autoHighlight: false, borderWidth: 1 },
+        colors: ["#527add", "#de527a"],
+        series: {
+          stack: 1,
+          lines: { show: true, fill: true },
+          points: { show: true }
+        },
+        
+        //    grid: {
+        //    backgroundColor: { colors: ["#fff", "#eee"] }
+        //}
+      }
+      
+      var plot = $.plot(placeholder, data, options );
+  
+%span= link_to "הוספת קן", "./"+@mahoz.name+"/new"
+
+
+
+

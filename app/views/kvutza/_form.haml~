@@ -1,0 +1,7 @@
+- form_for @kvutza, '', :id => 'kvutza-form' do |f|
+  = f.error_messages
+  = f.text_field_block :name, :caption => "שם הקבוצה"
+  = f.text_field_block :code, :caption => "קוד קבוצה"
+
+  = f.submit_block "שמור את החניך הזה יא סחבי!", :class => 'button'
+

@@ -1,0 +1,4 @@
+%h2 רישום קבוצה חדשה
+
+= partial "kvutza/form"
+  

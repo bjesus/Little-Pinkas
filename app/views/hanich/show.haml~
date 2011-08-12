@@ -1,0 +1,34 @@
+%h2 #{@hanich.full_name}
+
+#hanich-details
+  %p טלפון: #{@hanich.phone}
+  %p טלפון נוסף: #{@hanich.phone}
+  %p כתובת: #{@hanich.phone}
+  %p שם האם: #{@hanich.phone}
+  %p שם האב: #{@hanich.phone}
+  %p תעודת זהות: #{@hanich.phone}
+
+
+%h3 פעולות שבהם השתתף #{@hanich.first_name}
+%table{:class => 'datatable', :id => "hanich-mifgashim-table"}
+  %thead
+    %tr
+      %th תאריך
+      %th סוג
+      %th כותרת
+      %th בנים
+      %th בנות
+      %th סה"כ
+      %th אפשרויות
+  %tbody
+    - @hanich.mifgashim.each do |m|
+      %tr
+        %td= m.date.strftime("%m/%d/%y")
+        %td= m.kind
+        %td= m.name
+        %td= m.boys
+        %td= m.girls
+        %td= m.girls+m.boys
+        %td
+          = link_to "פרטים מלאים"
+
