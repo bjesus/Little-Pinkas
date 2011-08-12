@@ -1,0 +1,17 @@
+Little Pinkas
+-------------
+
+Install using RVM, 'bundle install', etc.
+
+Couldn't do without
+-------------------
+- Padrino (Ruby)
+- Mongoid (MongoDB)
+- CanCan
+- Compass
+- HAML
+- Sass
+- Thin webserver
+- jQuery
+
+
