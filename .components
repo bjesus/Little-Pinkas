@@ -1,0 +1,8 @@
+--- 
+:mock: none
+:orm: mongoid
+:admin_renderer: haml
+:renderer: haml
+:test: none
+:stylesheet: sass
+:script: jquery
