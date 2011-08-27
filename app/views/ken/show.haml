@@ -21,7 +21,7 @@
           %td.inlinesparkline= k.gender_stats
           %td
             -#= link_to "עריכה", url_for(:kvutza, :edit, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
-            = link_to "פרטים מלאים", url_for(:kvutza, :show, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
+            = link_to "פרטים מלאים", url_for(:kvutza, :show, :mahoz => @ken.mahoz.name, :ken => @ken.name, :kvutza => k.name)
 
 #plot-ph{:style => "width:300px;height:200px; float: left;"}
 - content_for :js do
@@ -105,5 +105,4 @@
     
 
 
-
-%span= link_to "יצירת קבוצה חדשה", "./"+@ken.name+"/new"
+%span= link_to "יצירת קבוצה חדשה", url_for(:kvutza, :new, :mahoz => @ken.mahoz.name, :ken => @ken.name)

@@ -20,7 +20,11 @@ class Hanich
   # key :field <, :another_field, :one_more ....>
   
   def full_name
-    first_name + " " + last_name
+    begin
+      first_name + " " + last_name
+    rescue
+      "new"
+    end
   end
   
   def activity

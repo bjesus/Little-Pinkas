@@ -12,6 +12,9 @@ class Kvutza
 
   has_and_belongs_to_many :madrichim, :class_name => 'Account', :inverse_of => :kvutzot
 
+  validates_presence_of :name
+  validates_presence_of :code
+
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
 

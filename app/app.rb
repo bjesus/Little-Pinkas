@@ -70,7 +70,6 @@ class Pinkas < Padrino::Application
 
   
   error CanCan::AccessDenied do
-    puts "sdfsdf"
     redirect "/login"
   end
   
@@ -78,7 +77,6 @@ class Pinkas < Padrino::Application
   disable :store_location
   
   set :login_page, "/login"
-  
 
 end
 
@@ -172,8 +170,6 @@ module CanCan
       base.extend ClassMethods
       # base.helper_method :can?, :cannot?, :current_ability
     end
-    
-    
   end
-  
 end
+

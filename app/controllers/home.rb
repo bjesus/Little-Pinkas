@@ -25,7 +25,7 @@ Pinkas.controllers :home do
         @kvutza = Kvutza.first(:conditions => { :madrichim_ids => current_account.id })
         redirect "/"+@kvutza.ken.mahoz.name+"/"+@kvutza.ken.name+"/"+@kvutza.name
       elsif current_user.role == 'commonar'
-        @ken = ken.first(:conditions => { :commonarim_ids => current_account.id })
+        @ken = Ken.first(:conditions => { :commonarim_ids => current_account.id })
         redirect "/"+@ken.mahoz.name+"/"+@ken.name
       elsif current_user.role == 'rakaz_ken'
         @ken = Ken.first(:conditions => { :rakazim_ids => current_account.id })
