@@ -11,8 +11,11 @@ class Ken
   has_many :kvutzot, :class_name => 'Kvutza', :inverse_of => :ken
   belongs_to :mahoz, :class_name => 'Mahoz', :inverse_of => :kenim
 
-  has_and_belongs_to_many :commonarim, :class_name => 'Account', :inverse_of => :kenim_commonar
+  #has_and_belongs_to_many :commonarim, :class_name => 'Account', :inverse_of => :kenim_commonar
   has_and_belongs_to_many :rakazim, :class_name => 'Account', :inverse_of => :kenim_rakaz
+  
+  accepts_nested_attributes_for :rakazim, :allow_destroy => true
+  #embeds_many :rakazim, :class_name => "Account", :inverse_of => :kenim_rakaz
   
  
 

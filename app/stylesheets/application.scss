@@ -18,7 +18,22 @@ body {
 
 #header {
   background: #4eab51;
+  border-bottom: 1px solid #4eab51;
   padding: 0 5px 1em 0;
+  height: 50px;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.03, rgb(147,240,148)),
+    color-stop(0.76, rgb(78,171,81))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(147,240,148) 3%,
+      rgb(78,171,81) 76%
+  );
+
   
   h1 {
     color: white;
@@ -26,10 +41,16 @@ body {
     padding-top: .5em;
     font-size: 200%;
     font-weight: bold;
+    float: right;
+    text-shadow: #4EAB51 1px 1px 3px;
   }
 
   ul.menu {
     list-style: none;
+    float: right;
+    line-height: 60px;
+    margin-right: 1em;
+    text-shadow: #4EAB51 1px 1px 3px;
     
     li {
       list-style: none;
@@ -40,6 +61,10 @@ body {
         color: white;
         text-decoration: none;
         font-size: 120%;
+      }
+      
+      a:hover {
+        border-bottom: 1px solid white;
       }
     }
   }
@@ -111,10 +136,25 @@ a.fg-button {
     }
   }
   
+  //.madrich {
+  //  background: white;
+  //  border: 1px solid #ab4f83;
+  //  border-radius: 5px;
+  //	text-shadow: #ab4f83 1px 1px 5px;
+  //	padding: 0 4px;
+  //}
+  
+  .madrich:hover {
+    background: #ab4f83;
+    border: 1px solid white;
+    color: white;
+  }
+  
 }
 
 #footer {
   text-align: center;
   color: grey;
   padding: 1em;
+  clear: both;
 }

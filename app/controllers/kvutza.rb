@@ -1,15 +1,17 @@
-Pinkas.controllers :kvutza do
+Pinkas.controllers :kvutza, :parent => :ken do
   include CanCan::ControllerAdditions
   
-  get :new, :map => "/:mahoz/:ken/new" do
+  get :new, :with => :mahoz_id do
     authorize! :new, Kvutza
-    @ken = Ken.first :conditions => {:name => params[:ken]}
+    @ken = Ken.first :conditions => {:name => params[:ken_id]}
     @kvutza = @ken.kvutzot.new
+    @shchavot = Shichva.all
+    @kvutza.name = "קבוצה חדשה"
     render 'kvutza/new'
   end
   
-  get :show, :map => "/:mahoz/:ken/:kvutza" do
-    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+  get :show, :with => [:kvutza_id, :mahoz_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     authorize! :show, @kvutza
     @mifgashim = @kvutza.mifgashim.order_by([[:date, :desc]])
     @graph = {'m' => [], 'f' => []}
@@ -21,17 +23,23 @@ Pinkas.controllers :kvutza do
     render 'kvutza/show'
   end
   
+  get :edit, :with => [:kvutza_id, :mahoz_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
+    @shchavot = Shichva.all
+    render 'kvutza/edit'
+  end
   
-  post :update, :map => "/:mahoz/:ken/:kvutza_name" do
-    if params[:kvutza_name] == 'new'
-      @ken = Ken.first :conditions => {:name => params[:ken]}
+  post :update, :with => [:kvutza_id, :mahoz_id] do
+    if params[:kvutza_id] == 'קבוצה חדשה'
+      @ken = Ken.first :conditions => {:name => params[:ken_id]}
       @kvutza = @ken.kvutzot.new
     else
-      @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_name]}
+      @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
+      @ken = @kvutza.ken
     end
     authorize! :update, @kvutza
     @kvutza.update_attributes params[:kvutza]
-    redirect url(:ken, :show, {:ken => @ken.name, :mahoz => @ken.mahoz.name})
+    redirect url(:ken_show, :ken_id => @ken.name, :mahoz_id => @ken.mahoz.name)
   end
   
   error CanCan::AccessDenied do

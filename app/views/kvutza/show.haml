@@ -1,6 +1,9 @@
 - if can? :show, @kvutza.ken
-  %span= link_to @kvutza.ken.name, "/"+@kvutza.ken.mahoz.name+"/"+@kvutza.ken.name
-%h2 קבוצת #{@kvutza.name}
+  %span= link_to @kvutza.ken.name, url_for(:ken_show, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name)
+%h2
+  ="קבוצת #{@kvutza.name}"
+  - if @kvutza.shichva
+    = "(#{@kvutza.shichva.name})"
 
 #mifgashim-table{:style => "float: right;"}
   %table{:class => 'datatable'}
@@ -23,7 +26,7 @@
           %td= m.girls
           %td= m.girls+m.boys
           %td
-            = link_to "עריכה", url_for(:mifgash, :edit, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name, :mifgash => m.name)
+            = link_to "עריכה", url_for(:mifgash_edit, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => m.name)
             = link_to "פרטים מלאים"
 
 #plot-ph{:style => "width:300px;height:200px; float: left;"}
@@ -54,7 +57,7 @@
       var plot = $.plot(placeholder, data, options );
     
 %div{:style => "clear: both;"}              
-= link_to "הוספת מפגש חדש", url_for(:mifgash, :new, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name)
+= link_to "הוספת מפגש חדש", url_for(:mifgash_new, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name)
 %br
 
 %h3 חניכים בקבוצת #{@kvutza.name}
@@ -82,7 +85,7 @@
         %td= k.address
         %td.inlinesparkline= k.activity
         %td
-          = link_to "עריכה", url_for(:hanich, :edit, :mahoz => k.kvutza.ken.mahoz.name, :ken => k.kvutza.ken.name, :kvutza => k.kvutza.name, :hanich => k.full_name)
-          = link_to "פרטים מלאים", url_for(:hanich, :show, :mahoz => k.kvutza.ken.mahoz.name, :ken => k.kvutza.ken.name, :kvutza => k.kvutza.name, :hanich => k.full_name)
+          = link_to "עריכה", url_for(:hanich_edit, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.full_name)
+          = link_to "פרטים מלאים", url_for(:hanich_show, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.full_name)
           
-= link_to "הוספת חניך חדש", url_for(:hanich, :new, :mahoz => @kvutza.ken.mahoz.name, :ken => @kvutza.ken.name, :kvutza => @kvutza.name)
+= link_to "הוספת חניך חדש", url_for(:hanich_new, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name)

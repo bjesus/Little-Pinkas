@@ -1,4 +1,4 @@
-Pinkas.controllers :mifgash do
+Pinkas.controllers :mifgash, :parent => :kvutza do
 
   # get :sample, :map => "/sample/url", :provides => [:any, :js] do
   #   case content_type
@@ -10,25 +10,26 @@ Pinkas.controllers :mifgash do
   #   "Maps to url '/foo/#{params[:id]}'"
   # end
 
-  get :new, :map => "/:mahoz/:ken/:kvutza/mifgash/new" do
-    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+  get :new, :with => [:mahoz_id, :ken_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     @mifgash = @kvutza.mifgashim.new
     @mifgash.date = Date.today
+    @mifgash.name = "מפגש חדש"
     render 'mifgash/new'
   end
 
-  get :edit, :map => "/:mahoz/:ken/:kvutza/mifgash/:mifgash" do
-    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
-    @mifgash = Mifgash.first :conditions => {:name => params[:mifgash]}
+  get :edit, :with => [:mahoz_id, :ken_id, :mifgash_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
+    @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_id]}
     render 'mifgash/edit'
   end
   
-  post :update, :map => "/:mahoz/:ken/:kvutza/mifgash/:mifgash_name" do
-    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
-    if params[:mifgash_name] == 'new'
+  post :update, :with => [:mahoz_id, :ken_id, :mifgash_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
+    if params[:mifgash_id] == 'מפגש חדש'
       @mifgash = @kvutza.mifgashim.new
     else
-      @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_name]}
+      @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_id]}
     end
     
     if params[:taxonomy]
@@ -52,7 +53,7 @@ Pinkas.controllers :mifgash do
       h.save
     end
     
-    redirect url(:kvutza, :show, {:kvutza => @mifgash.kvutza.name, :mahoz => @mifgash.kvutza.ken.mahoz.name, :ken => @mifgash.kvutza.ken.name})
+    redirect url(:kvutza_show, :kvutza_id => @mifgash.kvutza.name, :mahoz_id => @mifgash.kvutza.ken.mahoz.name, :ken_id => @mifgash.kvutza.ken.name)
   end
   
 end

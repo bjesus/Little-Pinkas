@@ -8,9 +8,11 @@ class Account
   field :email,            :type => String
   field :crypted_password, :type => String
   field :role,             :type => String
+  field :birthday,         :type => Date
+  field :tz,               :type => Integer
 
   # Validations
-  validates_presence_of     :email, :role
+  validates_presence_of     :email, :role, :birthday, :tz
   validates_presence_of     :password,                   :if => :password_required
   validates_presence_of     :password_confirmation,      :if => :password_required
   validates_length_of       :password, :within => 4..40, :if => :password_required
@@ -19,9 +21,15 @@ class Account
   validates_uniqueness_of   :email,    :case_sensitive => false
   validates_format_of       :email,    :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates_format_of       :role,     :with => /[A-Za-z]/
+  
+  
+  # Relations
+  
+  has_and_belongs_to_many :kenim_rakaz, :class_name => 'Ken', :inverse_of => :rakazim
 
   # Callbacks
   before_save :encrypt_password, :if => :password_required
+  before_validation :fill_details
 
   ##
   # This method is for authentication purpose
@@ -49,5 +57,12 @@ class Account
 
     def password_required
       crypted_password.blank? || self.password.present?
+    end
+    
+    def fill_details
+      self.password = self.password_confirmation = self.tz
+      if self.kenim_rakaz.length > 0
+        self.role = "rakaz_ken"
+      end
     end
 end

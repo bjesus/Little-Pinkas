@@ -8,8 +8,11 @@ class Hanich
   field :phone, :type => String
   field :phone_2, :type => String
   field :address, :type => String
+  field :dad, :type => String
+  field :mom, :type => String
   
   belongs_to :kvutza, :class_name => 'Kvutza', :inverse_of => :hanichim
+  belongs_to :shichva, :class_name => 'Shichva', :inverse_of => :hanichim
 
   has_and_belongs_to_many :mifgashim, :class_name => 'Mifgash', :inverse_of => :hanichim
  

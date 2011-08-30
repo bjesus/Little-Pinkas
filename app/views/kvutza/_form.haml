@@ -1,7 +1,8 @@
-- form_for @kvutza, '', :id => 'kvutza-form' do |f|
+- form_for @kvutza, url_for(:kvutza_update, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name), :id => 'kvutza-form' do |f|
   = f.error_messages
   = f.text_field_block :name, :caption => "שם הקבוצה"
   = f.text_field_block :code, :caption => "קוד קבוצה"
+  = f.select_block :shichva, :caption => "שכבה", :collection => @shchavot, :fields => [:name, :id]
 
   = f.submit_block "שמור את הקבוצה הזאת יא סחבי!", :class => 'button'
 

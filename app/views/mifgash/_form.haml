@@ -1,4 +1,4 @@
-- form_for @mifgash, '', :id => 'mifgash-form' do |f|
+- form_for @mifgash, url_for(:mifgash_update, :mifgash_id => @mifgash.name, :ken_id => @mifgash.kvutza.ken.name, :mahoz_id => @mifgash.kvutza.ken.mahoz.name, :kvutza_id => @mifgash.kvutza.name), :id => 'mifgash-form' do |f|
   = f.error_messages
   = f.text_field_block :name, :caption => "כותרת"
   = f.select_block     :kind, :options => ['פעולה', 'ערב תרבות', 'קבלת שבת', 'פעילות שיא', 'טיול', 'מחנה'], :caption => "סוג המפגש"

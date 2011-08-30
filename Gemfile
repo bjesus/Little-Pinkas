@@ -10,7 +10,7 @@ gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'compass'
 gem 'haml'
 gem 'SystemTimer', :require => "system_timer"
-gem 'mongoid', "2.0.0"
+gem 'mongoid', "2.2.0"
 gem 'bson_ext', :require => "mongo"
 gem "cancan"
 

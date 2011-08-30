@@ -1,15 +1,24 @@
-Pinkas.controllers :ken do
+Pinkas.controllers :ken, :parent => :mahoz do
   include CanCan::ControllerAdditions
 
-  get :new, :map => "/:mahoz/new" do
+  get :new do
     authorize! :new, Ken
-    @mahoz = Mahoz.first :conditions => {:name => params[:mahoz]}
+    @mahoz = Mahoz.first :conditions => {:name => params[:mahoz_id]}
     @ken = @mahoz.kenim.new
+    @ken.name = "קן חדש"
+    @ken.rakazim << Account.new(:kenim_rakaz => [@ken])
     render 'ken/new'
   end
 
-  get :show, :map => "/:mahoz/:ken" do
-    @ken = Ken.first :conditions => {:name => params[:ken]}
+  get :edit, :with => :ken_id do
+    @ken = Ken.first :conditions => {:name => params[:ken_id]}
+    authorize! :edit, @ken
+    @ken.rakazim << Account.new(:kenim_rakaz => [@ken])
+    render 'ken/edit'
+  end
+
+  get :show, :with => :ken_id do
+    @ken = Ken.first :conditions => {:name => params[:ken_id]}
     authorize! :show, @ken
     @graph = {'m' => [], 'f' => []}
     Mifgash.ken(@ken).all.order_by([[:date, :asc]]).each_with_index do |m, i|
@@ -19,17 +28,17 @@ Pinkas.controllers :ken do
     render 'ken/show'
   end
 
-
-  post :update, :map => "/:mahoz/:ken_name" do
-    if params[:ken_name] == 'new'
-      @mahoz = Mahoz.first :conditions => {:name => params[:mahoz]}
+  post :update, :with => :ken_id do
+    if params[:ken_id] == 'קן חדש'
+      @mahoz = Mahoz.first :conditions => {:name => params[:mahoz_id]}
       @ken = @mahoz.kenim.new
     else
-      @ken = ken.first :conditions => {:name => params[:ken_name]}
+      @ken = Ken.first :conditions => {:name => params[:ken_id]}
+      @mahoz = @ken.mahoz
     end
-    authorize! :update, @ken
-    @ken.update_attributes params[:ken]
-    redirect url(:mahoz, :show, {:mahoz => @mahoz.name})
+    authorize! :update, @ken    
+    @ken.update_attributes! params[:ken]
+    redirect url(:mahoz_show, {:mahoz_id => @mahoz.name})
   end
   
 end

@@ -8,7 +8,9 @@ class Kvutza
   
   has_many :hanichim, :class_name => 'Hanich', :inverse_of => :kvutza
   has_many :mifgashim, :class_name => 'Mifgash', :inverse_of => :kvutza
+
   belongs_to :ken, :class_name => 'Ken', :inverse_of => :kvutzot
+  belongs_to :shichva, :class_name => 'Shichva', :inverse_of => :kvutzot
 
   has_and_belongs_to_many :madrichim, :class_name => 'Account', :inverse_of => :kvutzot
 

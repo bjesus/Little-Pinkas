@@ -1,5 +1,5 @@
 - if can? :show, @ken.mahoz
-  %span= link_to @ken.mahoz.name, "/"+@ken.mahoz.name
+  %span= link_to @ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @ken.mahoz.name)
 %h2 קן #{@ken.name}
 
 
@@ -16,12 +16,15 @@
       - @ken.kvutzot.each do |k|
         %tr
           %td= k.name
-          %td= k.madrichim
+          %td{:style => "text-align: center;"}
+            - k.madrichim.each do |m|
+              %span{:class => "madrich" }
+                = m.name+ " " +m.surname
           %td.inlinesparkline= k.activity
           %td.inlinesparkline= k.gender_stats
           %td
-            -#= link_to "עריכה", url_for(:kvutza, :edit, :mahoz => k.ken.mahoz.name, :ken => k.ken.name, :kvutza => k.name)
-            = link_to "פרטים מלאים", url_for(:kvutza, :show, :mahoz => @ken.mahoz.name, :ken => @ken.name, :kvutza => k.name)
+            = link_to "עריכה", url_for(:kvutza_edit, :mahoz_id => @ken.mahoz.name, :ken_id => @ken.name, :kvutza_id => k.name)
+            = link_to "פרטים מלאים", url_for(:kvutza_show, :mahoz_id => @ken.mahoz.name, :ken_id => @ken.name, :kvutza_id => k.name)
 
 #plot-ph{:style => "width:300px;height:200px; float: left;"}
 - content_for :js do
@@ -105,4 +108,4 @@
     
 
 
-%span= link_to "יצירת קבוצה חדשה", url_for(:kvutza, :new, :mahoz => @ken.mahoz.name, :ken => @ken.name)
+%span= link_to "יצירת קבוצה חדשה", url_for(:kvutza_new, :mahoz_id => @ken.mahoz.name, :ken_id => @ken.name)

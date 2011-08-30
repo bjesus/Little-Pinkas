@@ -1,7 +1,22 @@
-- form_for @ken, '', :id => 'ken-form' do |f|
+- form_for @ken, url_for(:ken_update, :ken_id => @ken.name, :mahoz_id => @ken.mahoz.name), :id => 'ken-form' do |f|
   = f.error_messages
   = f.text_field_block :name, :caption => "שם הקן"
   = f.text_field_block :code, :caption => "קוד הקן"
+
+  %hr
+  - f.fields_for :rakazim do |rakazim_form| 
+    = rakazim_form.text_field_block :name
+    = rakazim_form.text_field_block :surname
+    = rakazim_form.text_field_block :email
+    = rakazim_form.text_field_block :birthday
+    = rakazim_form.text_field_block :tz
+
+    -# unless rakazim_form.object.new_record? 
+    = rakazim_form.check_box '_destroy' 
+    = rakazim_form.label '_destroy', :caption => 'מחיקה' 
+      
+    %hr
+
 
   = f.submit_block "שמור את הקן הזאת יא סוואדי!", :class => 'button'
 

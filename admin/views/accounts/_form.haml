@@ -17,6 +17,18 @@
   %span.description Ex: a simple text
 
 .group
+  =f.label :tz
+  =f.error_message_on :tz
+  =f.text_field :tz, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :birthday
+  =f.error_message_on :birthday
+  =f.text_field :birthday, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
   =f.label :password
   =f.error_message_on :password
   =f.password_field :password, :class => :password_field

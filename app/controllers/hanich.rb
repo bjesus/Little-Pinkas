@@ -10,33 +10,36 @@ Pinkas.controllers :hanich do
   #   "Maps to url '/foo/#{params[:id]}'"
   # end
 
-  get :new, :map => "/:mahoz/:ken/:kvutza/new" do
-    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+  get :new, :with => [:mahoz_id, :kvutza_id, :ken_id] do
+    @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     @hanich = @kvutza.hanichim.new
+    @shchavot = Shichva.all
+    @hanich.first_name = "חניך"
+    @hanich.last_name = "חדש"
     render 'hanich/new'
   end
   
-  get :show, :map => "/:mahoz/:ken/:kvutza/:hanich" do
-    @hanich = Hanich.first :conditions => {:first_name => params[:hanich].split[0], :last_name => params[:hanich].split[1]}
+  get :show, :with => [:hanich_id, :mahoz_id, :kvutza_id, :ken_id] do
+    @hanich = Hanich.first :conditions => {:first_name => params[:hanich_id].split[0], :last_name => params[:hanich_id].split[1]}
     render 'hanich/show'
   end
   
 
-  get :edit, :map => "/:mahoz/:ken/:kvutza/:hanich/edit" do
-    @hanich = Hanich.first :conditions => {:first_name => params[:hanich].split[0], :last_name => params[:hanich].split[1]}
+  get :edit, :with => [:hanich_id, :mahoz_id, :kvutza_id, :ken_id] do
+    @hanich = Hanich.first :conditions => {:first_name => params[:hanich_id].split[0], :last_name => params[:hanich_id].split[1]}
+    @shchavot = Shichva.all
     render 'hanich/edit'
   end
   
-  post :update, :map => "/:mahoz/:ken/:kvutza/:hanich_name" do
-    puts params[:hanich]
-    if params[:hanich_name] == 'new'
-      @kvutza = Kvutza.first :conditions => {:name => params[:kvutza]}
+  post :update, :with => [:hanich_id, :mahoz_id, :kvutza_id, :ken_id] do
+    if params[:hanich_id] == 'חניך חדש'
+      @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
       @hanich = @kvutza.hanichim.new
     else
-      @hanich = Hanich.first :conditions => {:first_name => params[:hanich_name].split[0], :last_name => params[:hanich_name].split[1]}
+      @hanich = Hanich.first :conditions => {:first_name => params[:hanich_id].split[0], :last_name => params[:hanich_id].split[1]}
     end
     @hanich.update_attributes params[:hanich]
-    redirect url(:kvutza, :show, {:kvutza => @hanich.kvutza.name, :mahoz => "sds", :ken => "asa"})
+    redirect url(:kvutza_show, :kvutza_id => @hanich.kvutza.name, :mahoz_id => @hanich.kvutza.ken.mahoz.name, :ken_id => @hanich.kvutza.ken.name)
   end
   
 end
