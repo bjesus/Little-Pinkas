@@ -26,6 +26,8 @@ class Account
   # Relations
   
   has_and_belongs_to_many :kenim_rakaz, :class_name => 'Ken', :inverse_of => :rakazim
+  has_and_belongs_to_many :kenim_commonar, :class_name => 'Ken', :inverse_of => :commonarim
+  has_and_belongs_to_many :kvutzot, :class_name => 'Kvutza', :inverse_of => :madrichim
 
   # Callbacks
   before_save :encrypt_password, :if => :password_required
@@ -61,6 +63,9 @@ class Account
     
     def fill_details
       self.password = self.password_confirmation = self.tz
+      if self.kvutzot.length > 0
+        self.role = "madrich"
+      end
       if self.kenim_rakaz.length > 0
         self.role = "rakaz_ken"
       end

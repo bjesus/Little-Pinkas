@@ -6,14 +6,16 @@ Pinkas.controllers :ken, :parent => :mahoz do
     @mahoz = Mahoz.first :conditions => {:name => params[:mahoz_id]}
     @ken = @mahoz.kenim.new
     @ken.name = "קן חדש"
-    @ken.rakazim << Account.new(:kenim_rakaz => [@ken])
+    @ken.rakazim << Account.new(:kenim_rakaz => [@ken], :role => "rakaz_ken")
+    @ken.commonarim << Account.new(:kenim_commonar => [@ken], :role => "commonar")
     render 'ken/new'
   end
 
   get :edit, :with => :ken_id do
     @ken = Ken.first :conditions => {:name => params[:ken_id]}
     authorize! :edit, @ken
-    @ken.rakazim << Account.new(:kenim_rakaz => [@ken])
+    @ken.rakazim << Account.new(:kenim_rakaz => [@ken], :role => "rakaz_ken")
+    @ken.commonarim << Account.new(:kenim_commonar => [@ken], :role => "commonar")
     render 'ken/edit'
   end
 

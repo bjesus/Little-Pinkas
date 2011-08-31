@@ -14,6 +14,8 @@ class Kvutza
 
   has_and_belongs_to_many :madrichim, :class_name => 'Account', :inverse_of => :kvutzot
 
+  accepts_nested_attributes_for :madrichim, :allow_destroy => true, :reject_if => proc { |attributes| attributes["name"].blank? }
+
   validates_presence_of :name
   validates_presence_of :code
 

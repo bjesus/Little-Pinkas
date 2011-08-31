@@ -4,9 +4,10 @@ Pinkas.controllers :kvutza, :parent => :ken do
   get :new, :with => :mahoz_id do
     authorize! :new, Kvutza
     @ken = Ken.first :conditions => {:name => params[:ken_id]}
-    @kvutza = @ken.kvutzot.new
     @shchavot = Shichva.all
+    @kvutza = @ken.kvutzot.new
     @kvutza.name = "קבוצה חדשה"
+    @kvutza.madrichim << Account.new(:kvutzot => [@kvutza], :role => "madrich")
     render 'kvutza/new'
   end
   
@@ -19,13 +20,13 @@ Pinkas.controllers :kvutza, :parent => :ken do
       @graph['m'][i] = [m.date.to_time.to_i*1000, m.boys]
       @graph['f'][i] = [m.date.to_time.to_i*1000, m.girls]
     end
-
     render 'kvutza/show'
   end
   
   get :edit, :with => [:kvutza_id, :mahoz_id] do
     @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     @shchavot = Shichva.all
+    @kvutza.madrichim << Account.new(:kvutzot => [@kvutza], :role => "madrich")
     render 'kvutza/edit'
   end
   
@@ -38,7 +39,7 @@ Pinkas.controllers :kvutza, :parent => :ken do
       @ken = @kvutza.ken
     end
     authorize! :update, @kvutza
-    @kvutza.update_attributes params[:kvutza]
+    @kvutza.update_attributes! params[:kvutza]
     redirect url(:ken_show, :ken_id => @ken.name, :mahoz_id => @ken.mahoz.name)
   end
   
