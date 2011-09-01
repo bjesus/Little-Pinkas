@@ -1,3 +1,16 @@
+- content_for :breadcrumb do
+  - if can? :show, @ken.mahoz
+    %span= link_to @ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @ken.mahoz.name)
+  - else
+    %span= @ken.mahoz.name
+  %span= " &raquo; "
+  - if can? :show, @ken
+    %span= link_to " "+@ken.name, url_for(:ken_show, :mahoz_id => @ken.mahoz.name, :ken_id => @ken.name)
+  - else
+    %span= @ken.name
+  %span= " &raquo; "
+  %span= " עריכה"
+
 %h2 עריכת פרטי קן
 
 = partial "ken/form"

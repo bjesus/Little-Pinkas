@@ -33,6 +33,7 @@ body {
       rgb(147,240,148) 3%,
       rgb(78,171,81) 76%
   );
+  box-shadow: 0px 1px 10px rgb(147,240,148);
 
   
   h1 {
@@ -76,6 +77,30 @@ a.fg-button {
 
 #container {
   padding: 1em;
+  
+  
+  #breadcrumb {
+    background: #4eab51;
+    margin: -1em;
+    margin-bottom: 1em;
+    display: inline-table;
+    padding: 3px 10px;
+    border-radius: 0 0 0 10px;
+    color: white;
+    font-weight: bold;
+    box-shadow:-1px 1px 10px rgb(147,240,148);
+    
+    a {
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+  }
   
   a, a:visited {
     background-color: #894fab;

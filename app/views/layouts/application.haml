@@ -3,7 +3,7 @@
   %head
     %title= [@title, "פנקס הקטן"].compact.join(" | ")
     = stylesheet_link_tag 'application', 'demo_table', 'jquery-ui-1.8.13.custom'
-    = javascript_include_tag 'jquery', 'application', 'jquery.dataTables.min', 'jquery.sparkline.min', 'jquery.flot.min', 'jquery.flot.navigate.min', 'jquery.flot.stack.min', 'jquery.flot.crosshair.min'
+    = javascript_include_tag 'jquery', 'application', 'jquery.dataTables.min', 'jquery.sparkline.min', 'jquery.flot.min', 'jquery.flot.navigate.min', 'jquery.flot.stack.min', 'jquery.flot.crosshair.min', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/i18n/jquery.ui.datepicker-he.js'
     = yield_content :include
   %body
     #header
@@ -15,6 +15,9 @@
           %li= link_to "התנתקות ("+current_account.name+")", "/logout"
 
     #container
+      #breadcrumb
+        %span= " &raquo;&nbsp;"
+        = yield_content :breadcrumb
       #main= yield
     #footer
       פנקס הקטן | גרסת ננו-אלפא | תוכנה חופשית מאת הנוער העובד והלומד | מומלץ לצפיה בדפדפן חופשי
@@ -43,8 +46,24 @@
           };
           
     
-        $('#hanichim').dataTable({    "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true, 	"oLanguage": {			"sSearch": "חיפוש מהיר:"		}});
-        $('#kvutzot-table .datatable').dataTable({ "sWidth": 650,   "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true, 	"oLanguage": {			"sSearch": "חיפוש מהיר:"		}});
+        $('#hanichim').dataTable({    "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true,
+          "oLanguage": {
+            "sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_",
+            "sSearch": "חיפוש מהיר:",
+            "sEmptyTable": "הטבלה עדיין ריקה.",
+            "sInfoEmpty": "",
+          }        
+        });
+
+        $('#kvutzot-table .datatable').dataTable({ "sWidth": 650,   "bJQueryUI": true, "bLengthChange": false, "bPaginate": false, "bInfo": true,
+          "oLanguage": {
+            "sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_",
+            "sSearch": "חיפוש מהיר:",
+            "sEmptyTable": "הטבלה עדיין ריקה.",
+            "sInfoEmpty": "",
+          }
+        });
+
         $('#mifgashim-table .datatable').dataTable({ 		"bJQueryUI": true,
             "aoColumns": [
               { "sType": "uk_date", "asSorting": [ "desc" ] },
@@ -55,7 +74,27 @@
               null,
               null
             ],  
-            'iDisplayLength': 5,  "bLengthChange": false, "bPaginate": true, "bInfo": true, 	"oLanguage": {			"sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_", "sSearch": "חיפוש מהיר:"		}});
-        $('#hanich-mifgashim-table').dataTable({   "bJQueryUI": true,  'iDisplayLength': 5,  "bLengthChange": false, "bPaginate": true, "bInfo": true, 	"oLanguage": {			"sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_", "sSearch": "חיפוש מהיר:"		}});
+            'iDisplayLength': 5,  "bLengthChange": false, "bPaginate": true, "bInfo": true,
+            "oLanguage": {
+              "sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_",
+              "sSearch": "חיפוש מהיר:",
+              "sEmptyTable": "הטבלה עדיין ריקה.",
+              "sInfoEmpty": "", 
+              }
+            });
+
+        $('#hanich-mifgashim-table').dataTable({
+          "bJQueryUI": true,
+          'iDisplayLength': 5,
+          "bLengthChange": false,
+          "bPaginate": true,
+          "bInfo": true,
+          "oLanguage": {
+            "sInfo": "מציג את _START_ עד _END_ מתוך _TOTAL_",
+            "sSearch": "חיפוש מהיר:",
+            "sEmptyTable": "הטבלה עדיין ריקה.",
+            "sInfoEmpty": "",
+            }
+          });
 
 = yield_content :js

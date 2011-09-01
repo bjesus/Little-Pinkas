@@ -1,3 +1,26 @@
+- content_for :breadcrumb do
+  - if can? :show, @kvutza.ken.mahoz
+    %span= link_to @kvutza.ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @kvutza.ken.mahoz.name)
+  - else
+    %span= @kvutza.ken.mahoz.name
+  %span= " &raquo; "
+  - if can? :show, @kvutza.ken
+    %span= link_to " "+@kvutza.ken.name, url_for(:ken_show, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name)
+  - else
+    %span= " "+@kvutza.ken.name
+  %span= " &raquo; "
+  - if can? :show, @kvutza
+    %span= link_to " "+@kvutza.name, url_for(:kvutza_show, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name)
+  - else
+    %span= " "+@kvutza.name
+  %span= " &raquo; "
+  - if can? :show, @mifgash
+    %span= link_to " "+@mifgash.name, url_for(:mifgash_show, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => @mifgash.name)
+  - else
+    %span= " "+@mifgash.name
+  %span= " &raquo; "
+  %span= " עריכת מפגש"
+
 %h2 עריכת המפגש #{@mifgash.name}
 
 = partial "mifgash/form"

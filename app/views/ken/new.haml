@@ -1,3 +1,11 @@
+- content_for :breadcrumb do
+  - if can? :show, @ken.mahoz
+    %span= link_to @ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @ken.mahoz.name)
+  - else
+    %span= @ken.mahoz.name
+  %span= " &raquo; "
+  %span= " הוספת קן"
+
 %h2 רישום קן חדש
 
 = partial "ken/form"

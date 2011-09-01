@@ -30,10 +30,24 @@
     = rakazim_form.hidden_field :role
 
     -# unless rakazim_form.object.new_record? 
-    = rakazim_form.check_box '_destroy' 
+    = rakazim_form.check_box '_destroy'
     = rakazim_form.label '_destroy', :caption => 'מחיקה' 
       
     %hr
 
   = f.submit_block "שמור את הקן הזאת יא סוואדי!", :class => 'button'
 
+- content_for :js do
+  :javascript
+    $.datepicker.setDefaults( $.datepicker.regional[ "he" ] );
+    $('input[name*="birthday"]').datepicker({
+      dateFormat: 'yy-mm-dd',
+      firstDay: 0,
+      isRTL: true,
+      changeMonth: true,
+      changeYear: true,
+      defaultDate: "-19y",
+      maxDate: "-17y",
+      minDate: "-30y",
+      }
+    );

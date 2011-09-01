@@ -24,3 +24,18 @@
 
   = f.submit_block "שמור את הקבוצה הזאת יא סחבי!", :class => 'button'
 
+
+- content_for :js do
+  :javascript
+    $.datepicker.setDefaults( $.datepicker.regional[ "he" ] );
+    $('input[name*="birthday"]').datepicker({
+      dateFormat: 'yy-mm-dd',
+      firstDay: 0,
+      isRTL: true,
+      changeMonth: true,
+      changeYear: true,
+      defaultDate: "-19y",
+      maxDate: "-14y",
+      minDate: "-30y",
+      }
+    );

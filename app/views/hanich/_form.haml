@@ -10,6 +10,6 @@
   = f.text_field_block :mom, :caption => "שם האם"
 
   = f.select_block     :gender, :options => ['בן', 'בת'], :caption => "מין"
-  = f.select_block :shichva, :caption => "שכבה", :collection => @shchavot, :fields => [:name, :id]
+  = f.select_block     :shichva, :caption => "שכבה", :collection => @shchavot, :fields => [:name, :id]
   = f.submit_block "שמור את החניך הזה יא סחבי!", :class => 'button'
 
