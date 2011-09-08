@@ -7,6 +7,9 @@ class Ken
 
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
+
+  validates_presence_of :name, :code
+
   
   has_many :kvutzot, :class_name => 'Kvutza', :inverse_of => :ken
   belongs_to :mahoz, :class_name => 'Mahoz', :inverse_of => :kenim

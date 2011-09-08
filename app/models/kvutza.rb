@@ -16,8 +16,7 @@ class Kvutza
 
   accepts_nested_attributes_for :madrichim, :allow_destroy => true, :reject_if => proc { |attributes| attributes["name"].blank? }
 
-  validates_presence_of :name
-  validates_presence_of :code
+  validates_presence_of :name, :code
 
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>

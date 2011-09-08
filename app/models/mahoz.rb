@@ -7,6 +7,8 @@ class Mahoz
   field :code, :type => Integer
 
   has_many :kenim, :class_name => 'Ken', :inverse_of => :mahoz
+
+  validates_presence_of :name, :code
   
   has_and_belongs_to_many :rakazim, :class_name => 'Account', :inverse_of => :mahozot
   

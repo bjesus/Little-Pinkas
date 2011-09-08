@@ -15,6 +15,8 @@ class Hanich
   belongs_to :shichva, :class_name => 'Shichva', :inverse_of => :hanichim
 
   has_and_belongs_to_many :mifgashim, :class_name => 'Mifgash', :inverse_of => :hanichim
+
+  validates_presence_of :first_name, :last_name
  
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>

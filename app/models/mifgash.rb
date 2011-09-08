@@ -7,6 +7,7 @@ class Mifgash
   field :location, :type => String
   field :date, :type => Date
   
+  validates_presence_of     :name, :kind, :location, :date
   # You can define indexes on documents using the index macro:
   # index :field <, :unique => true>
   

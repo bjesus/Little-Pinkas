@@ -6,6 +6,8 @@ class Shichva
   field :name, :type => String
   field :age, :type => Integer
   
+  validates_presence_of :name, :age
+
   
   has_many :hanichim, :class_name => 'Hanich', :inverse_of => :shichva
   has_many :kvutzot, :class_name => 'Kvutza', :inverse_of => :shicvha
