@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Pinkas.controllers :mahoz do
   include CanCan::ControllerAdditions
 

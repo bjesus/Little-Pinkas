@@ -8,19 +8,30 @@ body {
   margin: 1em auto;
   margin-top: 0;
   width: 950px;
+  padding: 0;
+  border-radius: 0 0 20px 20px;
+  font-family: "arial", sans-serif;
+  font-size: 85%;
+}
+
+#page-container {
   background-color: rgba(255,255,255,0.65);
   padding: 0;
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 25px grey;
-  font-family: "arial", sans-serif;
-  font-size: 85%;
+  box-shadow: 0 10px 25px grey;
+}
+
+#slil {
+  background: url('/images/slil.png');
+  height: 30px;
+  margin-top: 5px;
 }
 
 #header {
   background: #4eab51;
   border-bottom: 1px solid #4eab51;
   padding: 0 5px 1em 0;
-  height: 50px;
+  height: 45px;
   background-image: -webkit-gradient(
     linear,
     left bottom,
@@ -33,13 +44,13 @@ body {
       rgb(147,240,148) 3%,
       rgb(78,171,81) 76%
   );
-  box-shadow: 0px 1px 10px rgb(147,240,148);
+  box-shadow: 0px 4px 10px rgb(147,240,148);
 
   
   h1 {
     color: white;
     padding-right: 1em;
-    padding-top: .5em;
+    padding-top: 10px;
     font-size: 200%;
     font-weight: bold;
     float: right;
@@ -95,14 +106,23 @@ a.fg-button {
       margin: 0;
       padding: 0;
       border: 0;
+      color: white;
     }
     
     a:hover {
       text-decoration: underline;
     }
   }
+
+  .textboxlist
+    a {
+      background: url('/images/close.gif') no-repeat;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
   
-  a, a:visited {
+  a.btn, a.btn:visited {
     background-color: #894fab;
     color: white;
     padding: 0px 5px;
@@ -114,11 +134,16 @@ a.fg-button {
 
   }
 
-  a:hover {
+  a.btn:hover {
     color: white;
     background-color: #ab4f83;
   }
 
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
   
   h2 {
     font-weight: bold;
@@ -144,6 +169,10 @@ a.fg-button {
     td {
       padding: 6px 3px;
       text-align: right;
+    }
+
+    td.center {
+      text-align: center;
     }
   }
   
@@ -182,4 +211,40 @@ a.fg-button {
   color: grey;
   padding: 1em;
   clear: both;
+}
+
+
+form {
+  p {
+    line-height: 30px;
+
+    label {
+      font-weight: bold;
+      line-height: 30px;
+      vertical-align: top;
+      margin-left: 1em;
+    }
+  }
+}
+
+input, textarea, .textboxlist {
+  border: 1px solid grey;
+  // border-radius: 15px;
+  color: #777;
+  padding: 3px 10px;
+  margin-bottom: 5px;
+  -webkit-box-shadow: 0px 1px 1px #bbb;
+  -moz-box-shadow: 0px 1px 1px #bbb;
+  box-shadow: 0px 1px 1px #bbb;
+}
+
+input[type=submit] {
+  background: #ab4f83;
+  color: white;
+
+}
+
+tr.click:hover, tr.click:hover td.sorting_1  {
+  background: #93f094;
+  cursor: pointer;
 }

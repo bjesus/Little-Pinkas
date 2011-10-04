@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Pinkas < Padrino::Application
   register Padrino::Mailer
   register Padrino::Helpers

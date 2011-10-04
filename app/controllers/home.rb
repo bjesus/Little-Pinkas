@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Pinkas.controllers :home do
   include CanCan::ControllerAdditions
 
@@ -40,5 +41,25 @@ Pinkas.controllers :home do
       redirect "/login"
     end
   end
+
+  get :suggest_children, :map => "/suggest-children" do
+
+    require 'net/http'
+    require 'uri'
+    madrichim_json = Net::HTTP.get URI.parse('http://levadom.noal.org.il/madrichim/json?user='+current_user.email)
+    madrichim = JSON.parse(madrichim_json)
+
+    children = []
+    #Account.all.each do |account|
+    #  children << [account.id, account.full_name, nil, account.full_name+" "+account.email]
+    #end
+    madrichim.each do |madrich|
+      children << [madrich['fields']['tz'], madrich['fields']['first_name']+" "+madrich['fields']['last_name'], nil, madrich['fields']['first_name']+" "+madrich['fields']['last_name']+" "+madrich['fields']['email']]
+    end
+    
+    children.to_json
+    
+  end
+
 
 end

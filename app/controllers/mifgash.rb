@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 Pinkas.controllers :mifgash, :parent => :kvutza do
 
   # get :sample, :map => "/sample/url", :provides => [:any, :js] do

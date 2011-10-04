@@ -1,29 +1,11 @@
+-# encoding: utf-8 
 - form_for @kvutza, url_for(:kvutza_update, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name), :id => 'kvutza-form' do |f|
   = f.error_messages
   = f.text_field_block :name, :caption => "שם הקבוצה"
   = f.text_field_block :code, :caption => "קוד קבוצה"
   = f.select_block :shichva, :caption => "שכבה", :collection => @shchavot, :fields => [:name, :id]
 
-
-  %hr
-  - f.fields_for :madrichim do |madrichim_form| 
-    %h4 הוספת מדריך
-    = madrichim_form.text_field_block :name, :caption => "שם פרטי"
-    = madrichim_form.text_field_block :surname, :caption => "שם משפחה"
-    = madrichim_form.text_field_block :email, :caption => "דואר אלקטרוני"
-    = madrichim_form.text_field_block :birthday, :caption => "תאריך לידה"
-    = madrichim_form.text_field_block :tz, :caption => "תעודת זהות"
-    = madrichim_form.hidden_field :role
-
-    -# unless madrichim_form.object.new_record? 
-    = madrichim_form.check_box '_destroy' 
-    = madrichim_form.label '_destroy', :caption => 'מחיקה' 
-      
-    %hr
-
-
   = f.submit_block "שמור את הקבוצה הזאת יא סחבי!", :class => 'button'
-
 
 - content_for :js do
   :javascript

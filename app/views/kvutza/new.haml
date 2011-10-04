@@ -1,3 +1,4 @@
+-# encoding: utf-8 
 - content_for :breadcrumb do
   - if can? :show, @kvutza.ken.mahoz
     %span= link_to @kvutza.ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @kvutza.ken.mahoz.name)

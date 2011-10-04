@@ -1,3 +1,4 @@
+-# encoding: utf-8 
 - content_for :breadcrumb do
   - if can? :show, @hanich.kvutza.ken.mahoz
     %span= link_to @hanich.kvutza.ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @hanich.kvutza.ken.mahoz.name)
@@ -25,7 +26,6 @@
   %p כתובת: #{@hanich.address}
   %p שם האב: #{@hanich.dad}
   %p תעודת זהות: #{@hanich.mom}
-
 
 %h3 פעולות שבהם השתתף #{@hanich.first_name}
 %table{:class => 'datatable', :id => "hanich-mifgashim-table"}

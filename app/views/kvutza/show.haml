@@ -1,3 +1,4 @@
+-# encoding: utf-8 
 - content_for :breadcrumb do
   - if can? :show, @kvutza.ken.mahoz
     %span= link_to @kvutza.ken.mahoz.name, url_for(:mahoz_show, :mahoz_id => @kvutza.ken.mahoz.name)
@@ -38,8 +39,8 @@
           %td= m.girls
           %td= m.girls+m.boys
           %td
-            = link_to "עריכה", url_for(:mifgash_edit, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => m.name)
-            = link_to "פרטים מלאים"
+            = link_to "עריכה", url_for(:mifgash_edit, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => m.name), :class => "btn"
+            = link_to "פרטים מלאים", :class => "btn"
 
 #plot-ph{:style => "width:300px;height:200px; float: left;"}
 - content_for :js do
@@ -76,7 +77,8 @@
 %table{:class => 'datatable', :id => 'hanichim', :style => "clear: both;"}
   %thead
     %tr
-      %th #
+      %th
+      %th מס קן
       %th שם פרטי
       %th משפחה
       %th טלפון
@@ -89,6 +91,7 @@
     - @kvutza.hanichim.each_with_index do |k, i|
       %tr
         %td= i+1
+        %td.center= image_tag "/images/leaf#{ if k.tax!=true then "-red" end }.png"
         %td= k.first_name
         %td= k.last_name
         %td= k.phone
@@ -97,7 +100,7 @@
         %td= k.address
         %td.inlinesparkline= k.activity
         %td
-          = link_to "עריכה", url_for(:hanich_edit, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.full_name)
-          = link_to "פרטים מלאים", url_for(:hanich_show, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.full_name)
+          = link_to "עריכה", url_for(:hanich_edit, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.slug), :class => "btn"
+          = link_to "פרטים מלאים", url_for(:hanich_show, :mahoz_id => k.kvutza.ken.mahoz.name, :ken_id => k.kvutza.ken.name, :kvutza_id => k.kvutza.name, :hanich_id => k.slug), :class => "btn"
           
 = link_to "הוספת חניך חדש", url_for(:hanich_new, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name)

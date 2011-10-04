@@ -1,4 +1,5 @@
-- form_for @hanich, url_for(:hanich_update, :hanich_id => @hanich.full_name, :ken_id => @hanich.kvutza.ken.name, :mahoz_id => @hanich.kvutza.ken.mahoz.name, :kvutza_id => @hanich.kvutza.name), :id => 'hanich-form' do |f|
+-# encoding: utf-8 
+- form_for @hanich, url_for(:hanich_update, :hanich_id => @hanich.slug, :ken_id => @hanich.kvutza.ken.name, :mahoz_id => @hanich.kvutza.ken.mahoz.name, :kvutza_id => @hanich.kvutza.name), :id => 'hanich-form' do |f|
   = f.error_messages
   = f.text_field_block :first_name, :caption => "שם פרטי"
   = f.text_field_block :last_name, :caption => "שם משפחה"
@@ -8,6 +9,7 @@
   = f.text_field_block :tz, :caption => "תעודת זהות"
   = f.text_field_block :dad, :caption => "שם האב"
   = f.text_field_block :mom, :caption => "שם האם"
+  = f.check_box_block :tax, :caption => "שילם מיסי קן"
 
   = f.select_block     :gender, :options => ['בן', 'בת'], :caption => "מין"
   = f.select_block     :shichva, :caption => "שכבה", :collection => @shchavot, :fields => [:name, :id]

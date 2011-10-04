@@ -1,8 +1,10 @@
+# -*- encoding : utf-8 -*-
 class Hanich
   include Mongoid::Document
+  include Mongoid::Slug
 
   # field <name>, :type => <type>, :default => <value>
-  field :first_name, :type => String
+  field :first_name
   field :last_name, :type => String
   field :tz, :type => Integer
   field :phone, :type => String
@@ -10,6 +12,9 @@ class Hanich
   field :address, :type => String
   field :dad, :type => String
   field :mom, :type => String
+  field :tax, :type => Boolean
+
+  slug :first_name, :last_name
   
   belongs_to :kvutza, :class_name => 'Kvutza', :inverse_of => :hanichim
   belongs_to :shichva, :class_name => 'Shichva', :inverse_of => :hanichim

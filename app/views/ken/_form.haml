@@ -1,41 +1,10 @@
+-# encoding: utf-8 
 - form_for @ken, url_for(:ken_update, :ken_id => @ken.name, :mahoz_id => @ken.mahoz.name), :id => 'ken-form' do |f|
   = f.error_messages
   = f.text_field_block :name, :caption => "שם הקן"
   = f.text_field_block :code, :caption => "קוד הקן"
 
-  %hr
-  - f.fields_for :commonarim do |commonarim_form| 
-    %h4 הוספת קומונר
-    = commonarim_form.text_field_block :name, :caption => "שם פרטי"
-    = commonarim_form.text_field_block :surname, :caption => "שם משפחה"
-    = commonarim_form.text_field_block :email, :caption => "דואר אלקטרוני"
-    = commonarim_form.text_field_block :birthday, :caption => "תאריך לידה"
-    = commonarim_form.text_field_block :tz, :caption => "תעודת זהות"
-    = commonarim_form.hidden_field :role
-
-    -# unless rakazim_form.object.new_record? 
-    = commonarim_form.check_box '_destroy' 
-    = commonarim_form.label '_destroy', :caption => 'מחיקה' 
-      
-    %hr
-
-  %hr
-  - f.fields_for :rakazim do |rakazim_form| 
-    %h4 הוספת רכז קן
-    = rakazim_form.text_field_block :name, :caption => "שם פרטי"
-    = rakazim_form.text_field_block :surname, :caption => "שם משפחה"
-    = rakazim_form.text_field_block :email, :caption => "דואר אלקטרוני"
-    = rakazim_form.text_field_block :birthday, :caption => "תאריך לידה"
-    = rakazim_form.text_field_block :tz, :caption => "תעודת זהות"
-    = rakazim_form.hidden_field :role
-
-    -# unless rakazim_form.object.new_record? 
-    = rakazim_form.check_box '_destroy'
-    = rakazim_form.label '_destroy', :caption => 'מחיקה' 
-      
-    %hr
-
-  = f.submit_block "שמור את הקן הזאת יא סוואדי!", :class => 'button'
+  = f.submit_block "שמור את הקן הזה יא סוואדי!", :class => 'button'
 
 - content_for :js do
   :javascript
@@ -51,3 +20,4 @@
       minDate: "-30y",
       }
     );
+

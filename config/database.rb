@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 # Connection.new takes host, port
 host = 'localhost'
