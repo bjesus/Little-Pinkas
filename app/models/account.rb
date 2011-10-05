@@ -57,7 +57,18 @@ class Account
     data['tafkidim'].each do |tafkid|
       case tafkid['tafkid']['level']
       when 1
-        user.role = "madrich"
+        unless user.role == "commonar" or user.role == "rakaz_ken" or user.role == "rakaz_mahoz"
+          user.role = "madrich"
+        end
+        if tafkid['moked']['code'].to_s.length == 7
+          kvutza = Kvutza.find_or_create_by :code => tafkid['moked']['code']
+          if not kvutza.madrichim.include? user
+            kvutza.madrichim << user
+          end
+          kvutza.name = tafkid['moked']['he']
+          kvutza.ken = Ken.find_or_create_by :code => tafkid['moked']['code'].to_s.slice(0,4)
+          kvutza.save!
+        end
       when 4
         user.role = "commonar"
         ken = Ken.find_or_create_by :code => tafkid['moked']['code']
