@@ -15,7 +15,7 @@ Pinkas.controllers :hanich do
     @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     @hanich = @kvutza.hanichim.new
     @shchavot = Shichva.all
-    @hanich.slug = "חניך חדש"
+    @hanich.slug = "new"
     render 'hanich/new'
   end
   
@@ -32,7 +32,7 @@ Pinkas.controllers :hanich do
   end
   
   post :update, :with => [:hanich_id, :mahoz_id, :kvutza_id, :ken_id] do
-    if params[:hanich_id] == 'חניך חדש'
+    if params[:hanich_id] == "new"
       @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
       @hanich = @kvutza.hanichim.new
     else
