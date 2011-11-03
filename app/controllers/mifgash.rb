@@ -16,7 +16,7 @@ Pinkas.controllers :mifgash, :parent => :kvutza do
     @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
     @mifgash = @kvutza.mifgashim.new
     @mifgash.date = Date.today
-    @mifgash.name = "מפגש חדש"
+    @mifgash.name = "new_mifgash"
     render 'mifgash/new'
   end
 
@@ -28,7 +28,7 @@ Pinkas.controllers :mifgash, :parent => :kvutza do
   
   post :update, :with => [:mahoz_id, :ken_id, :mifgash_id] do
     @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
-    if params[:mifgash_id] == 'מפגש חדש'
+    if params[:mifgash_id] == 'new_mifgash'
       @mifgash = @kvutza.mifgashim.new
     else
       @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_id]}
