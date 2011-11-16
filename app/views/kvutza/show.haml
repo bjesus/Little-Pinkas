@@ -39,7 +39,7 @@
           %td= m.girls
           %td= m.girls+m.boys
           %td
-            = link_to "עריכה", url_for(:mifgash_edit, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => m.name), :class => "btn"
+            = link_to "עריכה", url_for(:mifgash_edit, :mahoz_id => @kvutza.ken.mahoz.name, :ken_id => @kvutza.ken.name, :kvutza_id => @kvutza.name, :mifgash_id => m.id), :class => "btn"
             = link_to "פרטים מלאים", :class => "btn"
 
 #plot-ph{:style => "width:300px;height:200px; float: left;"}

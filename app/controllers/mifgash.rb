@@ -22,7 +22,7 @@ Pinkas.controllers :mifgash, :parent => :kvutza do
 
   get :edit, :with => [:mahoz_id, :ken_id, :mifgash_id] do
     @kvutza = Kvutza.first :conditions => {:name => params[:kvutza_id]}
-    @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_id]}
+    @mifgash = Mifgash.first :conditions => {:id => params[:mifgash_id]}
     render 'mifgash/edit'
   end
   
@@ -31,21 +31,19 @@ Pinkas.controllers :mifgash, :parent => :kvutza do
     if params[:mifgash_id] == 'new_mifgash'
       @mifgash = @kvutza.mifgashim.new
     else
-      @mifgash = Mifgash.first :conditions => {:name => params[:mifgash_id]}
+      @mifgash = Mifgash.first :conditions => {:id => params[:mifgash_id]}
     end
     
-    if params[:taxonomy]
+    if params.has_key? 'taxonomy'
       @mifgash.hanichim = params[:taxonomy].map { |t|
         if t[1] != '0'
           Hanich.find(t)
         end
       }
     else
-      @mifgash.hanichim = []
-    end
-    
+      @mifgash.hanichim.clear
+    end    
     @mifgash.update_attributes params[:mifgash]
-
     @kvutza.hanichim.each do |h|
       if @mifgash.hanichim.include? h
         h.mifgashim << @mifgash
